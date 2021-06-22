@@ -639,6 +639,16 @@ class MrpBomExtension(models.Model):
                      False,
                      False)
                 ])  # Get Latest revision of each Part
+                # ----- Added by LP -----
+                # Use product template id in case there is no engineering_code assigned
+                # (product is not a manufacturing product)
+                if not bom_line.product_id.product_tmpl_id.engineering_code:
+                    late_rev_id_c = [bom_line.product_id.product_tmpl_id.id]
+                logging.debug("======================================= LP BOM TEST ===================================")
+                #logging.debug(bom_line.product_id.product_tmpl_id.engineering_code)
+                logging.debug(late_rev_id_c)
+                logging.debug("======================================= LP BOM TEST ===================================")
+                # ----- End added by LP -----
                 bom_line.sudo().write({'state': 'draft'})
                 bom_line.write({
                     'source_id': False,
