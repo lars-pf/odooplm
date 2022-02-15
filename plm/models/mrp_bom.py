@@ -635,11 +635,11 @@ class MrpBomExtension(models.Model):
         new_bom_brws = super(MrpBomExtension, self).copy(default)
         if new_bom_brws:
             for bom_line in new_bom_brws.bom_line_ids:
-                late_rev_id_c = self.env['product.product'].GetLatestIds([
-                    (bom_line.product_id.product_tmpl_id.engineering_code,
-                     False,
-                     False)
-                ])  # Get Latest revision of each Part
+                # late_rev_id_c = self.env['product.product'].GetLatestIds([
+                #     (bom_line.product_id.product_tmpl_id.engineering_code,
+                #      False,
+                #      False)
+                # ])  # Get Latest revision of each Part
 
                 # ----- Added by LP -----
                 # logging.debug("======================================= LP BOM TEST ===================================")
@@ -653,11 +653,15 @@ class MrpBomExtension(models.Model):
                 # ----- End added by LP -----
 
                 bom_line.sudo().write({'state': 'draft'})
+
+                # ----- Changed by LP -----
                 bom_line.write({
                     'source_id': False,
                     'name': bom_line.product_id.product_tmpl_id.name,
-                    'product_id': late_rev_id_c[0]
+                    'product_id': bom_line.product_id.id
                 })
+                # ----- End changed by LP -----
+
             new_bom_brws.sudo().with_context({'check': False}).write({
                 'source_id': False,
                 'name': new_bom_brws.product_tmpl_id.name
