@@ -642,15 +642,16 @@ class MrpBomExtension(models.Model):
                 ])  # Get Latest revision of each Part
 
                 # ----- Added by LP -----
-                logging.debug("======================================= LP BOM TEST ===================================")
-                logging.debug('Engineering Code: {0}'.format(bom_line.product_id.product_tmpl_id.engineering_code))
-                logging.debug('Bom Line Product id: {0}'.format(bom_line.product_id.id))
-                logging.debug('Bom Line Product name: {0}'.format(bom_line.product_id.name))
-                logging.debug('Bom Line Product Template id: {0}'.format(bom_line.product_id.product_tmpl_id.id))
-                logging.debug('Bom Line Product Template Name: {0}'.format(bom_line.product_id.product_tmpl_id.name))
-                logging.debug(late_rev_id_c)
-                logging.debug("======================================= LP BOM TEST ===================================")
+                # logging.debug("======================================= LP BOM TEST ===================================")
+                # logging.debug('Engineering Code: {0}'.format(bom_line.product_id.product_tmpl_id.engineering_code))
+                # logging.debug('Bom Line Product id: {0}'.format(bom_line.product_id.id))
+                # logging.debug('Bom Line Product name: {0}'.format(bom_line.product_id.name))
+                # logging.debug('Bom Line Product Template id: {0}'.format(bom_line.product_id.product_tmpl_id.id))
+                # logging.debug('Bom Line Product Template Name: {0}'.format(bom_line.product_id.product_tmpl_id.name))
+                # logging.debug(late_rev_id_c)
+                # logging.debug("======================================= LP BOM TEST ===================================")
                 # ----- End added by LP -----
+
                 bom_line.sudo().write({'state': 'draft'})
                 bom_line.write({
                     'source_id': False,
